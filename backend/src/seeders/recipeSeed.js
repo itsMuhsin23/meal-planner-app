@@ -1,4 +1,4 @@
-import Recipe from "../src/models/Recipe.js";
+import Recipe from "../models/recipe.js";
 
 const sampleRecipes = [
   {

@@ -157,7 +157,7 @@ recipeSchema.index({ dietaryTags: 1 });
 recipeSchema.index({ name: 'text', description: 'text' }); // Text search
 
 // Pre-save validation: Check if calorie calculation is reasonable
-recipeSchema.pre('save', function(next) {
+recipeSchema.pre('save', function() {
   const calculated = (this.protein * 4) + (this.carbs * 4) + (this.fats * 9);
   const difference = Math.abs(this.calories - calculated);
   
@@ -166,7 +166,7 @@ recipeSchema.pre('save', function(next) {
     console.warn(`Warning: Calorie mismatch for ${this.name}. Stated: ${this.calories}, Calculated: ${calculated}`);
   }
   
-  next();
+  
 });
 
 // Static method: Find recipes by dietary preference

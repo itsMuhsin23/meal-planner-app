@@ -14,26 +14,22 @@ import {
 
 const router = express.Router();
 
-// Recipe statistics
+// ✅ Special routes FIRST
 router.get("/stats", getRecipeStats);
-
-// Meal plan generation helper
 router.get("/meal-plan", getRecipesForMealPlan);
-
-// Bulk operations
 router.post("/bulk", bulkCreateRecipes);
 
-// Basic CRUD
+// ✅ Filters BEFORE dynamic :id
+router.get("/category/:category", getRecipesByCategory);
+router.get("/diet/:diet", getRecipesByDiet);
+
+// ✅ Basic routes
 router.post("/", createRecipe);
 router.get("/", getRecipes);
+
+// ❗ Dynamic routes ALWAYS LAST
 router.get("/:id", getRecipeById);
 router.put("/:id", updateRecipe);
 router.delete("/:id", deleteRecipe);
-
-// Filter by category
-router.get("/category/:category", getRecipesByCategory);
-
-// Filter by dietary preference
-router.get("/diet/:diet", getRecipesByDiet);
 
 export default router;

@@ -1,14 +1,18 @@
+import express from "express";
 import dotenv from "dotenv";
-import app from "./src/app.js";
 import connectDB from "./src/config/db.js";
+import recipeRoutes from "./src/routes/recipeRoutes.js";
 
 dotenv.config();
-
-// connect to database
 connectDB();
 
-const PORT = process.env.PORT || 5000;
+const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// ✅ VERY IMPORTANT
+app.use(express.json());
+
+app.use("/api/recipes", recipeRoutes);
+
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });

@@ -3,25 +3,19 @@ import Recipe from "../models/Recipe.js";
 // CREATE recipe
 export const createRecipe = async (req, res) => {
   try {
+    console.log("BODY:", req.body); // 👈 ADD THIS
+
     const recipe = new Recipe(req.body);
     await recipe.save();
-    
+
     res.status(201).json({
       success: true,
       message: "Recipe created successfully",
       data: recipe
     });
   } catch (error) {
-    // Handle validation errors
-    if (error.name === 'ValidationError') {
-      const errors = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({
-        success: false,
-        message: "Validation failed",
-        errors: errors
-      });
-    }
-    
+    console.error("CREATE ERROR:", error); // 👈 ADD THIS
+
     res.status(500).json({
       success: false,
       message: "Failed to create recipe",
@@ -153,6 +147,8 @@ export const updateRecipe = async (req, res) => {
       data: recipe
     });
   } catch (error) {
+    console.error("UPDATE ERROR:", error); // 👈 ADD THIS
+
     if (error.name === 'ValidationError') {
       const errors = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
